@@ -11,8 +11,10 @@ function App() {
   const [chosenCount, setChosenCount] = useState(0);
 
   function handleSetCount(newCount) {
-    //ChosenCount set함수를 자식 컴포넌트에 전달
-    setChosenCount(newCount);
+    // state batching: set함수가 여러개 작성되었을 때, 하나의 리렌더링으로 묶어줌
+    setChosenCount(newCount); //첫 번째로 입력된 newCount가 10이라면
+    setChosenCount((prevChosenCount) => prevChosenCount + 1); // UI에 11 렌더링
+    console.log(chosenCount); // 0 출력
   }
 
   return (
@@ -20,7 +22,7 @@ function App() {
       <Header />
       <main>
         <ConfigureCounter onSetCount={handleSetCount} />
-        <Counter initialCount={chosenCount} />
+        <Counter key={chosenCount} initialCount={chosenCount} />
         <Counter initialCount={0} />
       </main>
     </>

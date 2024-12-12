@@ -23,9 +23,13 @@ export default function CounterHistory({ history }) {
 
   return (
     <ol>
-      {history.map((count, index) => (
-        <HistoryItem key={index} count={count} />
-      ))}
+      {history.map(
+        (
+          count // li 요소에 key 설정 필요 (특정 li 식별 용도)
+        ) => (
+          <HistoryItem key={count.id} count={count.value} /> // index를 key로 사용하지 말기 (인덱스의 값이 변함)
+        )
+      )}
     </ol>
   );
 }
